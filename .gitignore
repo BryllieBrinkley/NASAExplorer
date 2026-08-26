@@ -1,0 +1,14 @@
+
+# API keys and secrets
+Secrets.xcconfig
+
+# Xcode user data
+xcuserdata/
+*.xcuserstate
+
+# macOS
+.DS_Store
+
+# Build files
+DerivedData/
+build/
