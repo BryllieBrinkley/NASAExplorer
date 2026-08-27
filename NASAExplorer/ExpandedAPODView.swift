@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ExpandedImageView: View {
+struct ExpandedAPODView: View {
     let imageURL: URL
 
     @Environment(\.dismiss) private var dismiss

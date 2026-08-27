@@ -10,17 +10,16 @@ import SwiftUI
 struct RootTabView: View {
     var body: some View {
         TabView {
-            Tab("Today", image: "calendar") {
-                TodayView()
-            }
-            
             Tab("Explore", image: "map.fill") {
                 ExploreView()
             }
             
-            
             Tab("Asteroids", image: "circle.dotted.circle") {
-                AsteroidListView()
+                ExploreView()
+            }
+            
+            Tab("APOD", image: "calendar") {
+                TodayView()
             }
             
             Tab("Saved", image: "bookmark") {
