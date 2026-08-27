@@ -13,23 +13,31 @@ struct SplashView: View {
     
     var body: some View {
         ZStack {
-            Color
-                .gray
-                .opacity(0.7)
+            AppColors.spaceGradient
                 .ignoresSafeArea(.all)
-            VStack {
+            VStack(spacing: 25) {
+                
+
+                
                 Text(showText ? "NASA Space": "")
-                    .font(.system(size: 48))
-                    .fontWeight(.thin)
-                    .foregroundStyle(.white)
+                    .font(.system(size: 80))
+                    .fontWeight(.bold)
+                    .foregroundStyle(AppColors.primaryText)
+                    .fontWidth(.expanded)
+                
                 Image(showText ? "nasa-logo" : "moon.fill")
                     .resizable()
                     .scaledToFit()
-                Text(showText ? "Explorer" : "")
-                    .font(.system(size: 48))
-                    .fontWeight(.thin)
-                    .foregroundStyle(.white)
+                    .glassEffect(Glass.regular.tint(AppColors.highlightedBorder.opacity(0.4)))
                 
+                Text(showText ? "Explorer" : "")
+                    .font(.system(size: 80))
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(AppColors.nasaGradient)
+                    .fontWidth(.expanded)
+                
+
             }
             .onAppear(perform: {
                 withAnimation(.spring(duration: 5.0)) {

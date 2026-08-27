@@ -9,24 +9,23 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.gray
+                AppColors.background
                     .ignoresSafeArea(.all)
-                ScrollView {
-                    VStack(spacing: 20) {
-                        
+                ScrollView() {
+                    VStack(alignment: .leading , spacing: 20) {
                         TextField("Search NASA", text: $searchText)
                             .submitLabel(.search)
                             .onSubmit {
                                 let query = searchText.trimmingCharacters(
                                     in: .whitespacesAndNewlines
                                 )
-
+                                
                                 guard !query.isEmpty else {
                                     return
                                 }
-
+                                
                                 showSearchSheet = true
-
+                                
                                 Task {
                                     await viewModel.searchNASAMedia(query: query)
                                 }
@@ -34,21 +33,19 @@ struct ExploreView: View {
                             .padding()
                             .background(.white.opacity(0.8))
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                        Text("Browse")
+                            .font(.title)
+                            .foregroundStyle(.blue)
+                            .fontWeight(.semibold)
                         
+                        CategoryButtonView()
+                        FeaturedView()
                     }
-                    
-                    
-                    Text("Browse")
-                        .font(.title)
-                        .fontWeight(.light)
-                    
-                    CategoryButtonView()
-                    FeaturedView()
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("Explore")
-            .foregroundStyle(.black)
+            .foregroundStyle(AppColors.primaryText)
             .sheet(isPresented: $showSearchSheet) {
                 NASAResultsView(
                     query: searchText,
@@ -56,11 +53,11 @@ struct ExploreView: View {
                 )
                 .presentationDetents([.medium, .large])
             }
-            
         }
         
     }
 }
+
 
 enum ContentCategories {
     case Planets, Missions, Spacecraft, Asteroids, NASAImageLibrary
@@ -94,11 +91,14 @@ struct NASAItem: Decodable, Identifiable {
         data.first?.nasaId ?? links?.first?.href ?? "unknown"
     }
     
+    var details: NASAImageData? {
+        data.first
+    }
+    
     var previewURL: URL? {
         guard let href = links?.first?.href else {
             return nil
         }
-        
         return URL(string: href)
     }
 }

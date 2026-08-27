@@ -12,7 +12,7 @@ struct FeaturedView: View {
     var body: some View {
         NavigationStack {
                 ZStack {
-                    HStack(spacing: 20) {
+                    HStack {
                         VStack(alignment: .leading, spacing: 1) {
                         Text("Featured")
                             .font(.largeTitle)
@@ -20,7 +20,6 @@ struct FeaturedView: View {
                             .foregroundStyle(.black)
                             .padding(.leading)
                         ScrollView(.horizontal, showsIndicators: true) {
-               
                             HStack {
                                 ForEach(1..<10) {_ in
                                     FeaturedTopicCard(imageName: "voyager1", imageDesc: "Beyond the Solar System")

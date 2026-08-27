@@ -15,7 +15,6 @@ struct NASAResultsView: View {
     var body: some View {
         NavigationStack {
             Group {
-                
                 if viewModel.isLoading {
                     ProgressView("Searching NASA")
                 } else if let errorMessage = viewModel.errorMessage {
