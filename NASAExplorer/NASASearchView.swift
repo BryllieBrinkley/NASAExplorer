@@ -23,7 +23,12 @@ struct NASAResultsView: View {
                     ScrollView {
                         LazyVStack {
                             ForEach(viewModel.results) { item in
+                            NavigationLink {
+                                NASAItemDetailView(item: item)
+                            } label: {
                                 NASASearchResultCard(item: item)
+                                    .foregroundStyle(.black)
+                            }
                             }
                         }
                     }
@@ -60,17 +65,16 @@ struct NASASearchResultCard: View {
                 }
             }
             .frame(width: 120, height: 100)
-            .clipped()
             .clipShape(RoundedRectangle(cornerRadius: 12))
 
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .trailing , spacing: 6) {
                 Text(item.data.first?.title ?? "Untitled")
                     .font(.headline)
                     .lineLimit(2)
 
                 Text(item.data.first?.description ?? "No description")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.black)
                     .lineLimit(3)
             }
 
@@ -83,9 +87,48 @@ struct NASASearchResultCard: View {
 }
 
 
-#Preview {
+#Preview("NASAResultsView") {
+    let viewModel = ExploreViewModel(
+        mediaService: NASAMediaService()
+    )
+
     NASAResultsView(
-           query: "Mars",
-           viewModel: ExploreViewModel()
-       )
+        query: "Mars",
+        viewModel: viewModel
+    )
+    .task {
+        await viewModel.searchNASAMedia(query: "Mars")
+    }
+}
+
+
+
+
+#Preview("NASA Result Card") {
+    NASASearchResultCard(
+        item: NASAItem(
+            data: [
+                NASAImageData(
+                    center: "JPL",
+                    dateCreated: "2026-08-30T00:00:00Z",
+                    description: "NASA's Perseverance rover exploring the surface of Mars.",
+                    keywords: ["Mars", "Rover", "Perseverance"],
+                    location: "Mars",
+                    mediaType: "image",
+                    nasaId: "PIA25681",
+                    photographer: "NASA/JPL-Caltech",
+                    title: "Exploring the Surface of Mars"
+                )
+            ],
+            links: [
+                NASAImageLink(
+                    href: "https://images-assets.nasa.gov/image/PIA25681/PIA25681~thumb.jpg",
+                    rel: "preview",
+                    render: "image"
+                )
+            ]
+        )
+    )
+    .padding()
+    .background(AppColors.background)
 }

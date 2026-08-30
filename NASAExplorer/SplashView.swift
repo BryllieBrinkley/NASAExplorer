@@ -34,13 +34,13 @@ struct SplashView: View {
                     .font(.system(size: 80))
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundStyle(AppColors.nasaGradient)
+                    .foregroundStyle(AppColors.primaryText)
                     .fontWidth(.expanded)
                 
 
             }
             .onAppear(perform: {
-                withAnimation(.spring(duration: 5.0)) {
+                withAnimation(.snappy(duration: 4.0)) {
                     showText = true
                 }
             })

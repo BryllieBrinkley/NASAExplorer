@@ -1,35 +1,13 @@
+//
+//  NASAMediaService.swift
+//  NASAExplorer
+//
+//  Created by Jibryll Brinkley on 8/27/26.
+//
+
 import Foundation
-import Observation
 
-@Observable
-final class ExploreViewModel {
-
-    var results: [NASAItem] = []
-    var isLoading: Bool = false
-    var errorMessage: String? = nil
-    
-    func searchNASAMedia(query: String) async {
-        guard !query.trimmingCharacters(
-            in: .whitespacesAndNewlines
-        ).isEmpty else {
-            return
-        }
-
-        isLoading = true
-        errorMessage = nil
-
-        defer {
-            isLoading = false
-        }
-
-        do {
-            results = try await fetchNASAMedia(query: query)
-        } catch {
-            errorMessage = error.localizedDescription
-        }
-    }
-    
-    
+struct NASAMediaService {
     func fetchNASAMedia(query: String) async throws ->  [NASAItem] {
     
         var components = URLComponents(string: "https://images-api.nasa.gov/search")
@@ -62,4 +40,5 @@ final class ExploreViewModel {
             throw APIError.invalidData
         }
     }
+    
 }

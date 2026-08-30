@@ -42,3 +42,8 @@ struct NASAItemDetailView: View {
         .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
+
+
+//#Preview {
+////    NASAItemDetailView(item: )
+//}
