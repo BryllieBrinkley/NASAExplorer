@@ -16,7 +16,7 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                AppColors.spaceGradient
+             AppColors.spaceGradient
                     .ignoresSafeArea()
                 
                 ScrollView {
@@ -35,7 +35,7 @@ struct ExploreView: View {
                 NASAResultsView(
                     query: submittedQuery,
                     viewModel: viewModel
-                )
+                ) 
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.hidden)
             }

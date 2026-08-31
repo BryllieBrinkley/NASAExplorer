@@ -1,16 +1,11 @@
-//
-//  NASASearchView.swift
-//  NASAExplorer
-//
-//  Created by Jibryll Brinkley on 8/27/26.
-//
-
 import SwiftUI
+import SwiftData
 
 struct NASAResultsView: View {
     
     let query: String
     let viewModel: ExploreViewModel
+    @Environment(\.modelContext) var context
     
     var body: some View {
         NavigationStack {
@@ -42,7 +37,7 @@ struct NASAResultsView: View {
 
 struct NASASearchResultCard: View {
     let item: NASAItem
-
+    @Environment(\.modelContext) var context
     var body: some View {
         HStack(spacing: 14) {
             AsyncImage(url: item.previewURL) { phase in
@@ -79,6 +74,20 @@ struct NASASearchResultCard: View {
             }
 
             Spacer()
+            
+            Button {
+//                let newItem = SavedNASAItem(nasaID: <#T##String#>, title: <#T##String#>, itemDescription: <#T##String#>, savedAt: <#T##Date#>)
+//                
+//
+//                context.insert(newItem)
+                
+                print("bookmark pressed")
+                
+            } label: {
+                Image(systemName: "bookmark.fill")
+                    .foregroundStyle(.secondary)
+            }
+
         }
         .padding()
         .background(.background)
