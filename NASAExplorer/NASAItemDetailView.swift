@@ -1,5 +1,5 @@
-
 import SwiftUI
+import SwiftData
 
 struct NASAItemDetailView: View {
     let item: NASAItem

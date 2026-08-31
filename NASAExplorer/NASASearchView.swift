@@ -76,11 +76,7 @@ struct NASASearchResultCard: View {
             Spacer()
             
             Button {
-//                let newItem = SavedNASAItem(nasaID: <#T##String#>, title: <#T##String#>, itemDescription: <#T##String#>, savedAt: <#T##Date#>)
-//                
-//
-//                context.insert(newItem)
-                
+                saveItem()
                 print("bookmark pressed")
                 
             } label: {
@@ -93,6 +89,26 @@ struct NASASearchResultCard: View {
         .background(.background)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
+    
+    private func saveItem() {
+        guard let data = item.data.first else {
+            return
+        }
+        
+        guard let nasaID = item.details?.nasaId else {
+            return
+        }
+        
+        let savedItem = SavedNASAItem(nasaID: nasaID, title: data.title ?? "Untitled", itemDescription: data.description, mediaType: data.mediaType, imageURL: item.previewURL?.absoluteString, dateCreated: data.dateCreated)
+        
+        context.insert(savedItem)
+        
+    }
+    
+  
+    
+    
+    
 }
 
 
@@ -100,14 +116,14 @@ struct NASASearchResultCard: View {
     let viewModel = ExploreViewModel(
         mediaService: NASAMediaService()
     )
-
-    NASAResultsView(
-        query: "Mars",
-        viewModel: viewModel
-    )
-    .task {
-        await viewModel.searchNASAMedia(query: "Mars")
-    }
+//
+//    NASAResultsView(
+//        query: "Mars",
+//        viewModel: viewModel
+//    )
+//    .task {
+//        await viewModel.searchNASAMedia(query: "Mars")
+//    }
 }
 
 

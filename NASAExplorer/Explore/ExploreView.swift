@@ -35,7 +35,7 @@ struct ExploreView: View {
                 NASAResultsView(
                     query: submittedQuery,
                     viewModel: viewModel
-                ) 
+                )
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.hidden)
             }
