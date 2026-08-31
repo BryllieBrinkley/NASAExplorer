@@ -134,7 +134,7 @@ struct ExploreView: View {
                 }
                 .padding()
             }
-            
+ 
             APODPictureView(
                 pictureOfDay: pictureOfDay,
                 isLoading: isLoading,

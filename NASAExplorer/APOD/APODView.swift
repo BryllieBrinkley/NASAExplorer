@@ -145,7 +145,12 @@ func getPicture() async throws -> PictureOfDay {
         URLQueryItem(
             name: "api_key",
             value: apiKey
+        ),
+        URLQueryItem(
+            name: "thumbnail",
+            value: "true"
         )
+        
     ]
     
     guard let url = components?.url else {
@@ -210,6 +215,7 @@ struct PictureOfDay: Codable {
     let pictureURL: URL
     let title: String
     let mediaType: String
+    let thumbnailURL: URL?
     
     enum CodingKeys: String, CodingKey {
         case copyright
@@ -217,6 +223,7 @@ struct PictureOfDay: Codable {
         case title
         case pictureURL = "url"
         case mediaType = "media_type"
+        case thumbnailURL = "thumbnail_url"
     }
 }
 
