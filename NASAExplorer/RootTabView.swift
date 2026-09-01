@@ -3,22 +3,24 @@ import SwiftUI
 struct RootTabView: View {
 
     @State private var selectedTab: AppTab = .explore
+    @State private var shouldFocusSearch = false
 
     var body: some View {
-
         ZStack(alignment: .bottom) {
 
             // MARK: - Current Screen
+
             Group {
-
                 switch selectedTab {
-
                 case .explore:
-                    ExploreView()
+                    ExploreView(shouldFocusSearch: $shouldFocusSearch)
+
                 case .today:
                     APODView()
+
                 case .saved:
                     SavedView()
+
                 case .search:
                     SearchView()
                 }
@@ -27,10 +29,15 @@ struct RootTabView: View {
 
             // MARK: - Custom Tab Bar
 
-            HStack(spacing: 12) {
+            HStack {
 
                 // Main grouped tabs
                 HStack(spacing: 4) {
+                    tabButton(
+                        tab: .explore,
+                        icon: "map.fill",
+                        title: "Explore"
+                    )
 
                     tabButton(
                         tab: .today,
@@ -38,11 +45,6 @@ struct RootTabView: View {
                         title: "APOD"
                     )
 
-                    tabButton(
-                        tab: .explore,
-                        icon: "map.fill",
-                        title: "Explore"
-                    )
                     tabButton(
                         tab: .saved,
                         icon: "bookmark.fill",
@@ -57,22 +59,25 @@ struct RootTabView: View {
                 Spacer()
                 
                 Button {
-                    withAnimation(.spring(response: 0.3)) {
-                        selectedTab = .saved
-                    }
+                    selectedTab = .explore
+                    shouldFocusSearch = true
                 } label: {
-                    tabButton(
-                        tab: .explore,
-                        icon: "magnifyingglass",
-                        title: "Search"
-                    )
+                    VStack(spacing: 3) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(size: 19, weight: .semibold))
+                            
+                        Text("Search")
+                            .font(.caption2)
+                    }
+                    .padding(8)
+                    .background(.thickMaterial)
+                    .foregroundStyle(AppColors.nasaBlue)
+                    .clipShape(Capsule())
                 }
+                Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 8)
         }
     }
-
 
     // MARK: - Tab Button
 
@@ -81,17 +86,12 @@ struct RootTabView: View {
         icon: String,
         title: String
     ) -> some View {
-
         Button {
-
             withAnimation(.spring(response: 0.3)) {
                 selectedTab = tab
             }
-
         } label: {
-
             VStack(spacing: 3) {
-
                 Image(systemName: icon)
                     .font(.system(size: 19, weight: .semibold))
 
@@ -111,3 +111,4 @@ struct RootTabView: View {
 #Preview {
     RootTabView()
 }
+

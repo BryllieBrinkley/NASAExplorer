@@ -25,7 +25,7 @@ struct SplashView: View {
                     .foregroundStyle(AppColors.primaryText)
                     .fontWidth(.expanded)
                 
-                Image(showText ? "nasa-logo" : "moon.fill")
+                Image(showText ? "nasa-logo" : "")
                     .resizable()
                     .scaledToFit()
                     .glassEffect(Glass.regular.tint(AppColors.highlightedBorder.opacity(0.4)))

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct ExploreView: View {
     @State private var searchText = ""
@@ -12,22 +13,33 @@ struct ExploreView: View {
     @State private var isLoading = false
     @State private var expandPic: Bool = false
     @State private var imagePlaceholder = Image(.nasaLogo)
+    @FocusState private var isSearchFocused: Bool
+    @Binding var shouldFocusSearch: Bool
+    @Environment(\.modelContext) private var modelContext
+    
+    @Query(sort: \SavedNASAItem.dateCreated, order: .reverse)
+    private var savedItems: [SavedNASAItem]
+    
     
     var body: some View {
         NavigationStack {
             ZStack {
-             AppBackground()
+                AppBackground()
                     .ignoresSafeArea()
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 50) {
                         Text("Explore")
                             .foregroundStyle(.white)
                             .font(.largeTitle)
                         searchField
                         browseSection
                         apodSection
+                        recentlySaved
+                        
+                        Spacer()
                     }
+                    .foregroundStyle(AppColors.primaryText)
                     .padding()
                 }
             }
@@ -39,10 +51,10 @@ struct ExploreView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.hidden)
             }
-        } 
+        }
         .task {
             do {
-               pictureOfDay = try await getPicture()
+                pictureOfDay = try await getPicture()
             } catch {
                 print(APIError.invalidResponse)
             }
@@ -52,24 +64,26 @@ struct ExploreView: View {
     }
     
     private var searchField: some View {
-        TextField(
-            "",
-            text: $searchText,
-            prompt: Text("Search NASA")
-                .foregroundStyle(.gray)
-        )
-        .foregroundStyle(.black)
-        .submitLabel(.search)
-        .onSubmit {
-            submitSearch()
-        }
-        .padding()
-        .background(.white.opacity(0.9))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay {
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(AppColors.border, lineWidth: 1)
-        }
+        TextField("Search NASA", text: $searchText)
+            .focused($isSearchFocused)
+            .onChange(of: shouldFocusSearch) { _, newValue in
+                if newValue {
+                    isSearchFocused = true
+                    shouldFocusSearch = false
+                }
+            }
+            .onSubmit {
+                submitSearch()
+            }
+            .foregroundStyle(.black)
+            .submitLabel(.search)
+            .padding()
+            .background(.white.opacity(0.9))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay {
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(AppColors.border, lineWidth: 1)
+            }
     }
     
     private var browseSection: some View {
@@ -81,18 +95,12 @@ struct ExploreView: View {
                     Text("Browse Media")
                         .font(.title2)
                         .fontWeight(.semibold)
-                        .foregroundStyle(AppColors.primaryText)
                     Image(systemName: "arrow.forward.square")
                         .font(.title2)
-                        .foregroundStyle(.white)
-                        .foregroundStyle(AppColors.primaryText)
                 }
-                .padding()
-                
                 
             }
-            
-            
+
             CategoryButtonView()
         }
     }
@@ -114,7 +122,7 @@ struct ExploreView: View {
         }
     }
     private var apodSection: some View {
-        VStack(alignment: .leading, spacing: 25) {
+        VStack(alignment: .leading) {
             NavigationLink {
                 APODView()
             } label: {
@@ -123,26 +131,47 @@ struct ExploreView: View {
                         .font(.system(size: 20))
                         .fontWeight(.semibold)
                         .lineLimit(1)
-                        .foregroundStyle(AppColors.primaryText)
-
-                    Spacer()
                     
                     Image(systemName: "arrow.forward.square")
                         .font(.title2)
-                        .foregroundStyle(AppColors.primaryText)
-    
+                    
                 }
-                .padding()
             }
- 
+            
             APODPictureView(
                 pictureOfDay: pictureOfDay,
                 isLoading: isLoading,
                 expandPic: $expandPic)
         }
     }
+    
+    private var recentlySaved: some View {
+        VStack {
+            HStack {
+                Text("Recently Saved")
+                    .font(.largeTitle)
+                    .foregroundStyle(AppColors.primaryText)
+                
+                Spacer()
+                
+                NavigationLink(destination: SavedView()) {
+                        Text("See All")
+                            .foregroundStyle(.primary)
+                            .underline()
+                }
+            }
+            
+            
+            ForEach(savedItems) { item in
+                SavedNASAItemCard(item: item)
+                
+                
+            }
+        }
+        
+    }
 }
 
 #Preview {
-    ExploreView()
+    ExploreView(shouldFocusSearch: .constant(false))
 }

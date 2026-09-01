@@ -25,8 +25,6 @@ struct NASAExplorerApp: App {
         }
         .modelContainer(for: SavedNASAItem.self)
         
-        
-        
     }
     
 }

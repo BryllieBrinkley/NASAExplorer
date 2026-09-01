@@ -91,6 +91,7 @@ struct NASASearchResultCard: View {
     }
     
     private func saveItem() {
+        
         guard let data = item.data.first else {
             return
         }
@@ -103,12 +104,15 @@ struct NASASearchResultCard: View {
         
         context.insert(savedItem)
         
+        do {
+            try context.save()
+               print("✅ Saved item")
+           } catch {
+               print("❌ Save failed:", error)
+           }
+        
     }
-    
-  
-    
-    
-    
+      
 }
 
 

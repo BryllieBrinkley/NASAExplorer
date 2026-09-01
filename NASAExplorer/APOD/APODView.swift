@@ -48,8 +48,8 @@ struct APODView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(AppColors.nasaGradient)
                                 .lineLimit(2)
-                            
                         }
+                        Spacer()
                     }
                     
                     if let errorMessage {
@@ -133,42 +133,61 @@ struct APODView: View {
 
 //Fetch APOD 
 func getPicture() async throws -> PictureOfDay {
+    print("🚀 getPicture STARTED")
     let apiKey = try AppConfiguration.nasaAPIKey
-    
+    print("✅ Got API key")
     var components = URLComponents(
         string: "https://api.nasa.gov/planetary/apod"
     )
-    
     components?.queryItems = [
         URLQueryItem(
             name: "api_key",
             value: apiKey
         ),
         URLQueryItem(
-            name: "thumbnail",
+            name: "thumbs",
             value: "true"
         )
-        
     ]
-    
+
     guard let url = components?.url else {
+        print("❌ URL FAILED")
         throw APIError.invalidURL
     }
-    
+
+    print("🌐 URL:", url)
+
     let (data, response) = try await URLSession.shared.data(from: url)
-    
-    guard let httpResponse = response as? HTTPURLResponse,
-          200..<300 ~= httpResponse.statusCode else {
+
+    print("📦 Got response")
+
+    guard let httpResponse = response as? HTTPURLResponse else {
+        print("❌ Not HTTP response")
         throw APIError.invalidResponse
     }
-    
+
+    print("📡 STATUS:", httpResponse.statusCode)
+
+    guard 200..<300 ~= httpResponse.statusCode else {
+        print("❌ BAD STATUS")
+        throw APIError.invalidResponse
+    }
+
     do {
-        return try JSONDecoder().decode(
+        let pictureOfDay = try JSONDecoder().decode(
             PictureOfDay.self,
             from: data
         )
+
+        print("✅ DECODED")
+        print("MEDIA TYPE:", pictureOfDay.mediaType)
+        print("VIDEO URL:", pictureOfDay.pictureURL)
+        print("THUMBNAIL:", pictureOfDay.thumbnailURL as Any)
+
+        return pictureOfDay
+
     } catch {
-        print("Decoding error:", error)
+        print("❌ Decoding error:", error)
         throw APIError.invalidData
     }
 }
@@ -213,8 +232,7 @@ struct PictureOfDay: Codable {
     let pictureURL: URL
     let title: String
     let mediaType: String
-    let thumbnailURL: URL?
-    
+    let thumbnailURL: String?
     enum CodingKeys: String, CodingKey {
         case copyright
         case explanation

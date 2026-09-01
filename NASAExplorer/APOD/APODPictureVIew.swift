@@ -90,46 +90,45 @@ private var imagePlaceholder: some View {
     }
     
     private func videoSection(picture: PictureOfDay) -> some View {
-        ZStack(alignment: .center) {
-            Link(destination: picture.pictureURL) {
-                AsyncImage(url: picture.thumbnailURL) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .tint(.white)
-                        
-                    case .success(let image):
+        Link(destination: picture.pictureURL) {
+            ZStack {
+                
+                if let thumbnailString = picture.thumbnailURL, !thumbnailString.isEmpty,
+                   let thumbnailURL = URL(string: thumbnailString) {
+                    
+                    AsyncImage(url: thumbnailURL) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                            
+                        case .success(let image):
                             image
                                 .resizable()
                                 .scaledToFill()
-                        
-                    case .failure:
-                        imagePlaceholder
-                        
-                    @unknown default:
-                        imagePlaceholder
+                            
+                        case .failure:
+                            imagePlaceholder
+                            
+                        @unknown default:
+                            imagePlaceholder
+                        }
                     }
+                } else {
+                            imagePlaceholder
+                        }
+                        Image(systemName: "play.fill")
+                            .font(.largeTitle)
+                            .foregroundStyle(.white)
+                            .padding()
+                            .background(.black.opacity(0.5))
+                            .clipShape(Circle())
+                    }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 220)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 220)
-                .background(.gray.opacity(0.2))
-                .clipShape(
-                    RoundedRectangle(
-                        cornerRadius: 20,
-                        style: .continuous
-                    )
-                )
             }
-            Image(systemName: "play.fill")
-                .foregroundStyle(AppColors.primaryText)
-                .font(.largeTitle)
-                .padding(12)
-                .background(AppColors.surface.opacity(0.5))
-                .clipShape(Circle())
         }
-    }
-
-}
 
 
 #Preview {
@@ -140,9 +139,7 @@ private var imagePlaceholder: some View {
             pictureURL: URL(string: "https://apod.nasa.gov/apod/image/2501/example.jpg")!,
             title: "NASA Picture",
             mediaType: "image",
-            thumbnailURL: URL(
-                string: "https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg"
-            )
+            thumbnailURL: "https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg",
         ),
         isLoading: false,
         expandPic: .constant(false)

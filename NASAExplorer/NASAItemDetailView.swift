@@ -3,6 +3,7 @@ import SwiftData
 
 struct NASAItemDetailView: View {
     let item: NASAItem
+    @Environment(\.modelContext) var context
 
     var body: some View {
         ZStack {
@@ -33,6 +34,19 @@ struct NASAItemDetailView: View {
                             .font(.caption)
                             .foregroundStyle(AppColors.tertiaryText)
                     }
+                    
+                    
+                    Button {
+                        print("button pressed")
+                    } label: {
+                        Label("Save", systemImage: "heart")
+                            .foregroundStyle(AppColors.starGold)
+                        
+                    }
+
+                    
+
+                    
                 }
                 .padding()
             }
@@ -43,7 +57,35 @@ struct NASAItemDetailView: View {
     }
 }
 
-
-//#Preview {
-////    NASAItemDetailView(item: )
-//}
+#Preview("NASA Item Detail") {
+    NavigationStack {
+        NASAItemDetailView(
+            item: NASAItem(
+                data: [
+                    NASAImageData(
+                        center: "JPL",
+                        dateCreated: "2026-09-01T00:00:00Z",
+                        description: "A detailed preview description of a NASA image. This sample data is only used to design the SwiftUI layout.",
+                        keywords: ["NASA", "James Webb", "Space"],
+                        location: "Deep Space",
+                        mediaType: "image",
+                        nasaId: "PIA12345",
+                        photographer: "NASA",
+                        title: "James Webb Space Telescope"
+                    )
+                ],
+                links: [
+                    NASAImageLink(
+                        href: "https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg",
+                        rel: "preview",
+                        render: "image"
+                    )
+                ]
+            )
+        )
+    }
+    .modelContainer(
+        for: SavedNASAItem.self,
+        inMemory: true
+    )
+}
