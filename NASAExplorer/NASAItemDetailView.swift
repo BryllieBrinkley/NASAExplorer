@@ -37,7 +37,7 @@ struct NASAItemDetailView: View {
                     
                     
                     Button {
-                        print("button pressed")
+                        SavedItemsManager.save(item: item, context: context)
                     } label: {
                         Label("Save", systemImage: "heart")
                             .foregroundStyle(AppColors.starGold)

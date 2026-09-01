@@ -76,9 +76,7 @@ struct NASASearchResultCard: View {
             Spacer()
             
             Button {
-                saveItem()
-                print("bookmark pressed")
-                
+                SavedItemsManager.save(item: item, context: context)                
             } label: {
                 Image(systemName: "bookmark.fill")
                     .foregroundStyle(.secondary)
@@ -86,33 +84,8 @@ struct NASASearchResultCard: View {
 
         }
         .padding()
-        .background(.background)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
-    
-    private func saveItem() {
-        
-        guard let data = item.data.first else {
-            return
-        }
-        
-        guard let nasaID = item.details?.nasaId else {
-            return
-        }
-        
-        let savedItem = SavedNASAItem(nasaID: nasaID, title: data.title ?? "Untitled", itemDescription: data.description, mediaType: data.mediaType, imageURL: item.previewURL?.absoluteString, dateCreated: data.dateCreated)
-        
-        context.insert(savedItem)
-        
-        do {
-            try context.save()
-               print("✅ Saved item")
-           } catch {
-               print("❌ Save failed:", error)
-           }
-        
-    }
-      
 }
 
 

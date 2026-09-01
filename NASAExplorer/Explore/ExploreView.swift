@@ -50,6 +50,9 @@ struct ExploreView: View {
                 )
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.hidden)
+                .presentationBackground {
+                    AppBackground()
+                }
             }
         }
         .task {
