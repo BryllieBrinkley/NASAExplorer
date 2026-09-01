@@ -9,7 +9,7 @@ struct SavedView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                    AppColors.spaceGradient
+                    AppBackground()
                         .ignoresSafeArea()
                 Group {
                     if savedItems.isEmpty {

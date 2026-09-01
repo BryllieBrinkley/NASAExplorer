@@ -13,7 +13,7 @@ struct SplashView: View {
     
     var body: some View {
         ZStack {
-            AppColors.spaceGradient
+            AppBackground()
                 .ignoresSafeArea(.all)
             VStack(spacing: 25) {
                 

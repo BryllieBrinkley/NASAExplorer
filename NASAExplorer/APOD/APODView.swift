@@ -8,9 +8,7 @@ struct APODView: View {
     
     var body: some View {
         ZStack {
-            AppColors.spaceGradient
-                .ignoresSafeArea()
-            
+            AppBackground()
             ScrollView {
                 VStack {
                     Text("ASTRONOMY PICTURE OF THE DAY")

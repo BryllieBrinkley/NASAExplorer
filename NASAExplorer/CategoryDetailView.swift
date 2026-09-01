@@ -18,7 +18,7 @@ struct CategoryDetailView: View {
     
     var body: some View {
         ZStack {
-            AppColors.spaceGradient
+            AppBackground()
                 .ignoresSafeArea()
             
             Group {

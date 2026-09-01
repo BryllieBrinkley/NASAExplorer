@@ -16,7 +16,7 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-             AppColors.spaceGradient
+             AppBackground()
                     .ignoresSafeArea()
                 
                 ScrollView {
