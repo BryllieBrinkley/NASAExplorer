@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		F5F0BE33303DF7740074C819 /* NASAExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASAExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5C36742304DE2AD00CDBA57 /* NASAExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASAExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F0BE813040F2930074C819 /* NASAExplorer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = NASAExplorer.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -15,7 +15,7 @@
 		F5F0BE64303E71750074C819 /* Exceptions for "NASAExplorer" folder in "NASAExplorer" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resources/Info.plist,
 			);
 			target = F5F0BE32303DF7740074C819 /* NASAExplorer */;
 		};
@@ -53,16 +53,8 @@
 			children = (
 				F5F0BE813040F2930074C819 /* NASAExplorer.xcodeproj */,
 				F5F0BE35303DF7740074C819 /* NASAExplorer */,
-				F5F0BE34303DF7740074C819 /* Products */,
+				F5C36742304DE2AD00CDBA57 /* NASAExplorer.app */,
 			);
-			sourceTree = "<group>";
-		};
-		F5F0BE34303DF7740074C819 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F5F0BE33303DF7740074C819 /* NASAExplorer.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,7 +79,7 @@
 			packageProductDependencies = (
 			);
 			productName = NASAExplorer;
-			productReference = F5F0BE33303DF7740074C819 /* NASAExplorer.app */;
+			productReference = F5C36742304DE2AD00CDBA57 /* NASAExplorer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -115,7 +107,7 @@
 			mainGroup = F5F0BE2A303DF7740074C819;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = F5F0BE34303DF7740074C819 /* Products */;
+			productRefGroup = F5F0BE2A303DF7740074C819;
 			projectDirPath = "";
 			projectReferences = (
 				{
@@ -154,7 +146,7 @@
 		F5F0BE3C303DF7760074C819 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = F5F0BE35303DF7740074C819 /* NASAExplorer */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
+			baseConfigurationReferenceRelativePath = Configuration/Secrets.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -209,6 +201,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NASA_API_KEY = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -218,7 +211,7 @@
 		F5F0BE3D303DF7760074C819 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = F5F0BE35303DF7740074C819 /* NASAExplorer */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
+			baseConfigurationReferenceRelativePath = Configuration/Secrets.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -267,12 +260,15 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NASA_API_KEY = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
 		F5F0BE3F303DF7760074C819 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F5F0BE35303DF7740074C819 /* NASAExplorer */;
+			baseConfigurationReferenceRelativePath = Configuration/Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -284,7 +280,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NASAExplorer/Info.plist;
+				INFOPLIST_FILE = NASAExplorer/Resources/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -300,12 +296,13 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
+				NASA_API_KEY = "---";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brinkleylabs.NASAExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -318,6 +315,8 @@
 		};
 		F5F0BE40303DF7760074C819 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F5F0BE35303DF7740074C819 /* NASAExplorer */;
+			baseConfigurationReferenceRelativePath = Configuration/Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -329,7 +328,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NASAExplorer/Info.plist;
+				INFOPLIST_FILE = NASAExplorer/Resources/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -345,12 +344,13 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.1;
 				MARKETING_VERSION = 1.0;
+				NASA_API_KEY = "---";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brinkleylabs.NASAExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;

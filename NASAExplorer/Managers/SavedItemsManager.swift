@@ -25,9 +25,18 @@ struct SavedItemsManager {
 
         do {
             try context.save()
-            print("✅ Saved item")
+            print("item saved")
         } catch {
-            print("❌ Save failed:", error)
+            print("save failed", error)
+        }
+    }
+    
+    static func delete(item: SavedNASAItem, context: ModelContext) {
+        context.delete(item)
+        do {
+            try context.save()
+        } catch {
+            print("failed to delete")
         }
     }
 }

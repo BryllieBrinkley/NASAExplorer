@@ -7,15 +7,17 @@ import SwiftData
 
 @Model
 final class SavedNASAItem {
-    
+
     @Attribute(.unique)
     var nasaID: String
-    
+
     var title: String
     var itemDescription: String?
     var mediaType: String?
     var imageURL: String?
     var dateCreated: String?
+
+    var savedAt: Date = Date.now
 
     init(
         nasaID: String,

@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct CategoryCardView: View {
+
     let category: ContentCategory
 
     var body: some View {
+
         ZStack(alignment: .bottomLeading) {
+
             Image(category.imageName)
                 .resizable()
                 .scaledToFill()
@@ -19,6 +22,7 @@ struct CategoryCardView: View {
                 startPoint: .center,
                 endPoint: .bottom
             )
+            .frame(width: 175, height: 175)
 
             Text(category.title)
                 .font(.headline)
@@ -28,7 +32,9 @@ struct CategoryCardView: View {
                 .padding()
         }
         .frame(width: 175, height: 175)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(
+            RoundedRectangle(cornerRadius: 20)
+        )
         .overlay {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(AppColors.border, lineWidth: 1)

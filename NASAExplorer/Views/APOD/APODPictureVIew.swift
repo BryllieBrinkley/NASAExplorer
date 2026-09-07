@@ -20,12 +20,13 @@ struct APODPictureView: View {
                     .foregroundStyle(.white)
                     .frame(height: 220)
             } else if let pictureOfDay {
-                if pictureOfDay.mediaType == "image" {
+                let type = pictureOfDay.mediaType?.lowercased() ?? "image"
+                if type == "image" {
                     imageSection(picture: pictureOfDay)
-                } else if pictureOfDay.mediaType == "video" {
+                } else if type == "video" {
                     videoSection(picture: pictureOfDay)
                 } else {
-                    imagePlaceholder
+                    imageSection(picture: pictureOfDay) // default to image if unknown
                 }
             }
         }
@@ -72,6 +73,7 @@ private var imagePlaceholder: some View {
             )
             
             Button {
+                expandPic = true
             } label: {
                 Image(systemName: "rectangle.expand.diagonal")
                     .font(.title3)
@@ -145,3 +147,4 @@ private var imagePlaceholder: some View {
         expandPic: .constant(false)
     )
 }
+

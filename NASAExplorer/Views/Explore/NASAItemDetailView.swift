@@ -4,31 +4,42 @@ import SwiftData
 struct NASAItemDetailView: View {
     let item: NASAItem
     @Environment(\.modelContext) var context
-
+    
     var body: some View {
         ZStack {
             AppColors.background
                 .ignoresSafeArea()
-
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    AsyncImage(url: item.previewURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } placeholder: {
-                        ProgressView()
-                            .tint(.white)
+                    if let url = item.previewURL {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } placeholder: {
+                            ProgressView()
+                                .tint(.white)
+                        }
+                    } else {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.2))
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(1, contentMode: .fit)
+                            ProgressView()
+                                .tint(.white)
+                        }
                     }
-
+                    
                     Text(item.details?.title ?? "Untitled")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundStyle(AppColors.primaryText)
-
+                    
                     Text(item.details?.description ?? "No description available.")
                         .foregroundStyle(AppColors.secondaryText)
-
+                    
                     if let nasaID = item.details?.nasaId {
                         Text("NASA ID: \(nasaID)")
                             .font(.caption)
@@ -36,25 +47,32 @@ struct NASAItemDetailView: View {
                     }
                     
                     
-                    Button {
-                        SavedItemsManager.save(item: item, context: context)
-                    } label: {
-                        Label("Save", systemImage: "heart")
-                            .foregroundStyle(AppColors.starGold)
+                    HStack {
+                        let shareURL = item.previewURL ?? URL(string: "https://nasa.gov")!
+                        ShareLink(
+                            item: shareURL,
+                            message: Text("Check out this NASA media")
+                        )
+                        .foregroundStyle(AppColors.starGold)
                         
+                        Button {
+                            SavedItemsManager.save(item: item, context: context)
+                        } label: {
+                            Label("Save", systemImage: "heart")
+                                .foregroundStyle(AppColors.starGold)
+                            
+                        }
                     }
-
-                    
-
-                    
                 }
-                .padding()
+                
             }
+            .padding()
         }
         .navigationTitle("NASA Media")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
     }
+
 }
 
 #Preview("NASA Item Detail") {
@@ -89,3 +107,4 @@ struct NASAItemDetailView: View {
         inMemory: true
     )
 }
+

@@ -1,111 +1,95 @@
-import SwiftUI
-import SwiftData
+//
+//  NASASearchResultCard.swift
+//  NASAExplorer
+//
+//  Created by Jibryll Brinkley on 9/3/26.
+//
 
-struct NASAResultsView: View {
-    
-    let query: String
-    let viewModel: ExploreViewModel
-    @Environment(\.modelContext) var context
-    
-    var body: some View {
-        NavigationStack {
-            Group {
-                if viewModel.isLoading {
-                    ProgressView("Searching NASA")
-                } else if let errorMessage = viewModel.errorMessage {
-                    ContentUnavailableView("Search Failed!", image: "exclamationmark.triangle", description: Text(errorMessage))
-                } else {
-                    ScrollView {
-                        LazyVStack {
-                            ForEach(viewModel.results) { item in
-                            NavigationLink {
-                                NASAItemDetailView(item: item)
-                            } label: {
-                                NASASearchResultCard(item: item)
-                                    .foregroundStyle(.black)
-                            }
-                            }
-                        }
-                    }
-                }
-            }
-            .navigationTitle("Results for \(query)")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-}
+import SwiftUI
 
 struct NASASearchResultCard: View {
     let item: NASAItem
-    @Environment(\.modelContext) var context
+    
+    @Environment(\.modelContext) private var context
+    
     var body: some View {
+        
         HStack(spacing: 14) {
+            
             AsyncImage(url: item.previewURL) { phase in
                 switch phase {
+                    
                 case .empty:
                     ProgressView()
-
+                    
                 case .success(let image):
                     image
                         .resizable()
                         .scaledToFill()
-
+                    
                 case .failure:
                     Image(systemName: "photo")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
-
+                    
                 @unknown default:
                     EmptyView()
                 }
             }
             .frame(width: 120, height: 100)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-            VStack(alignment: .trailing , spacing: 6) {
+            .clipShape(
+                RoundedRectangle(cornerRadius: 12)
+            )
+            
+            VStack(alignment: .leading, spacing: 10) {
+                
                 Text(item.data.first?.title ?? "Untitled")
                     .font(.headline)
+                    .foregroundStyle(AppColors.primaryText)
                     .lineLimit(2)
-
+                
                 Text(item.data.first?.description ?? "No description")
                     .font(.caption)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(AppColors.secondaryText)
                     .lineLimit(3)
             }
-
+            
             Spacer()
             
             Button {
-                SavedItemsManager.save(item: item, context: context)                
+                SavedItemsManager.save(
+                    item: item,
+                    context: context
+                )
             } label: {
                 Image(systemName: "bookmark.fill")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppColors.starGold)
+                    .font(.title3)
             }
-
+            .buttonStyle(.plain)
         }
-        .padding()
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .padding(14)
+        .background(.ultraThinMaterial)
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: 20,
+                style: .continuous
+            )
+        )
+        .overlay {
+            RoundedRectangle(
+                cornerRadius: 20,
+                style: .continuous
+            )
+            .stroke(
+                AppColors.starGold.opacity(0.25),
+                lineWidth: 1
+            )
+        }
     }
 }
 
-
-#Preview("NASAResultsView") {
-    let viewModel = ExploreViewModel(
-        mediaService: NASAMediaService()
-    )
-//
-//    NASAResultsView(
-//        query: "Mars",
-//        viewModel: viewModel
-//    )
-//    .task {
-//        await viewModel.searchNASAMedia(query: "Mars")
-//    }
-}
-
-
-
-
+    
 #Preview("NASA Result Card") {
     NASASearchResultCard(
         item: NASAItem(

@@ -22,7 +22,7 @@ struct RootTabView: View {
                     SavedView()
 
                 case .search:
-                    SearchView()
+                    SavedView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
