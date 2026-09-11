@@ -1,6 +1,5 @@
-# NASA Media Viewer (SwiftUI + SwiftData)
-
-A lightweight iOS app that I built to search explore the NASA gallery of photos and videos with clean UI, smooth image loading, and simple saving/sharing workflows. Not endorsed or officially affiliated with NASA in any way, shape, or form. Happy exploring!
+# NASA Media Explorer
+A lightweight, iOS app that I built to browse and search the NASA gallery of photos and videos with clean UI, smooth image loading, and simple saving/sharing workflows. Not endorsed or officially affiliated with NASA in any way, shape, or form. Happy exploring!
 
 ## Highlights
 
@@ -64,6 +63,20 @@ A lightweight iOS app that I built to search explore the NASA gallery of photos 
 - Offline caching and image prefetching
 - Advanced filtering and keyword-based discovery
 - Swift Testing/XCTest for view models and persistence logic
+
+# Screenshots 
+
+
+<img width="115" height="250" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-09-11 at 17 43 29" src="https://github.com/user-attachments/assets/a771e773-29ef-45ff-a063-55cd933dfa63" />
+<img width="115" height="250" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-09-11 at 17 43 14" src="https://github.com/user-attachments/assets/21ab161c-fd2c-4d63-8cc1-2f441a8b3346" />
+<img width="115" height="250" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-09-11 at 17 42 56" src="https://github.com/user-attachments/assets/3158903d-c0d0-425a-bdd8-fc279fe40b4e" />
+
+<br>
+
+<img width="137" height="250" alt="IMG_3257" src="https://github.com/user-attachments/assets/0cbadd54-cd65-42d9-8237-83b209321c93" />
+<img width="125" height="250" alt="IMG_3255" src="https://github.com/user-attachments/assets/119843b3-866b-4ff9-b163-714b5ca2bcef" />
+<img width="138" height="250" alt="IMG_3260" src="https://github.com/user-attachments/assets/5ae1dd77-a480-4308-a90b-a63165180572" />
+
 
 
 Keywords: Swift, SwiftUI, SwiftData, async/await, Concurrency, MVVM, iOS, iPadOS, NavigationStack, ShareLink, AsyncImage, ModelContext, ModelContainer, Persistence, REST, JSON, NASA API, URLSession, Custom App Theming, App Architecture
