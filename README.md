@@ -1,6 +1,7 @@
 # NASA Media Viewer (SwiftUI + SwiftData)
 
-A modern iOS app to browse and preview NASA media with clean UI, smooth image loading, and simple saving/sharing workflows. Not endorsed or officially affiliated with NASA in any way, shape, or form.
+A lightweight iOS app that I built to search explore the NASA gallery of photos and videos with clean UI, smooth image loading, and simple saving/sharing workflows. Not endorsed or officially affiliated with NASA in any way, shape, or form. Happy exploring!
+
 ## Highlights
 
 - SwiftUI-first architecture with Swift Concurrency
