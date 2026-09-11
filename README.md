@@ -29,8 +29,7 @@ A modern iOS app to browse and preview NASA media with clean UI, smooth image lo
 - Foundation: URL, JSON, AttributedString-ready
 - Networking: REST/JSON via URLSession (planned), caching/prefetching (planned)
 - Architecture: MVVM-leaning SwiftUI, stateless views, dependency seams for networking
-- Tooling: Xcode, iOS/iPadOS targets, CI/CD (planned)
-- Keywords: Swift, SwiftUI, SwiftData, async/await, Concurrency, MVVM, iOS, iPadOS, NavigationStack, ShareLink, AsyncImage, ModelContext, ModelContainer, Persistence, REST, JSON, NASA API, URLSession, Caching, Unit Testing, Swift Testing, XCTest, Accessibility, Custom App Theming, App Architecture
+- Tooling: Xcode, iOS/iPadOS targets
 
 ## Code Tour
 
@@ -64,3 +63,6 @@ A modern iOS app to browse and preview NASA media with clean UI, smooth image lo
 - Offline caching and image prefetching
 - Advanced filtering and keyword-based discovery
 - Swift Testing/XCTest for view models and persistence logic
+
+
+Keywords: Swift, SwiftUI, SwiftData, async/await, Concurrency, MVVM, iOS, iPadOS, NavigationStack, ShareLink, AsyncImage, ModelContext, ModelContainer, Persistence, REST, JSON, NASA API, URLSession, Custom App Theming, App Architecture
